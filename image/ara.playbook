@@ -1,0 +1,29 @@
+---
+- hosts: all
+  tasks:
+
+    - name: "Install epel-release"
+      yum:
+        pkg:        "{{ item }}"
+        state:      "present"
+      with_items:
+        - epel-release
+
+    - name: "Install python-pip and compilation dependencies"
+      yum:
+        pkg:        "{{ item }}"
+        state:      "present"
+      with_items:
+        - python-pip
+        - python-devel
+        - gcc
+
+    - name: "Update pip with pip"
+      pip:
+        name: pip
+        state: latest
+
+    - name: "Install Ansible Runbook Analysis"
+      pip:
+        name: ara
+        state: present
